@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "418153980501",
+    "firebase_url": "https://pafp-6ab87.firebaseio.com",
+    "project_id": "pafp-6ab87",
+    "storage_bucket": "pafp-6ab87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418153980501:android:7932f42d2638ba9ea82adc",
+        "android_client_info": {
+          "package_name": "com.example.pafp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418153980501-r2jbem4hj0qj788fb897shtcr8n2ke3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_yVFQ8rSVP1wQi0sXQWSlqf8a333Y1w4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418153980501-r2jbem4hj0qj788fb897shtcr8n2ke3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
