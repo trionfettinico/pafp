@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Personal trainer',
+      title: 'Personal trainer prova',
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       home: WelcomePage(),
