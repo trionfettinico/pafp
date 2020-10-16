@@ -25,7 +25,10 @@ class _LoginPageState extends State<LoginPage> {
               child: Icon(Icons.keyboard_arrow_left, color: Colors.blue),
             ),
             Text('Indietro',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500,color: Colors.blue))
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue))
           ],
         ),
       ),
@@ -52,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
                     borderSide: const BorderSide(color: Colors.blue),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  fillColor: Colors.white,  //colore sfondo input email e password
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
                   filled: true))
         ],
       ),
@@ -65,12 +69,8 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.blue
-               )
-          ],
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        boxShadow: <BoxShadow>[BoxShadow(color: Colors.blue)],
       ),
       child: Text(
         'Login',
@@ -112,7 +112,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
   Widget _createAccountLabel() {
     return InkWell(
       onTap: () {
@@ -153,8 +152,7 @@ class _LoginPageState extends State<LoginPage> {
         width: 100.0,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/images/icon.jpg'),
+            image: AssetImage('assets/images/icon.jpg'),
             fit: BoxFit.fill,
           ),
         ),
@@ -176,39 +174,39 @@ class _LoginPageState extends State<LoginPage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: height * .2),
-                      _icon(),
-                      SizedBox(height: 50),
-                      _usernamePasswordWidget(),
-                      SizedBox(height: 20),
-                      _submitButton(),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        alignment: Alignment.centerRight,
-                        child: Text('Password dimenticata ?',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500)),
-                      ),
-                      _divider(), // - or -
-                      //SizedBox(height: height * .055),
-                      _createAccountLabel(),
-                    ],
+      height: height,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: height * .2),
+                  _icon(),
+                  SizedBox(height: 50),
+                  _usernamePasswordWidget(),
+                  SizedBox(height: 20),
+                  _submitButton(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.centerRight,
+                    child: Text('Password dimenticata ?',
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500)),
                   ),
-                ),
+                  _divider(), // - or -
+                  //SizedBox(height: height * .055),
+                  _createAccountLabel(),
+                ],
               ),
-              Positioned(top: 40, left: 0, child: _backButton()),
-            ],
+            ),
           ),
-        ));
+          Positioned(top: 40, left: 0, child: _backButton()),
+        ],
+      ),
+    ));
   }
 }
