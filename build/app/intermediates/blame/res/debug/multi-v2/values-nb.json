@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/nico/Scrivania/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-nb/values-nb.xml",
+            "outputFile": "/Users/nicotrionfetti/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-nb/values-nb.xml",
             "map": [
                 {
-                    "source": "/home/nico/.gradle/caches/transforms-2/files-2.1/03de50801950aab64f0548832a05435c/core-1.1.0/res/values-nb/values-nb.xml",
+                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/03de50801950aab64f0548832a05435c/core-1.1.0/res/values-nb/values-nb.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/nico/.gradle/caches/transforms-2/files-2.1/2eed52946df9cedb1a2c612e1f832da6/jetified-play-services-basement-17.0.0/res/values-nb/values.xml",
+                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/229915f355dfcd9c793c5a79b421f7ee/jetified-play-services-basement-17.0.0/res/values-nb/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/home/nico/.gradle/caches/transforms-2/files-2.1/ad08fb773c69b19de92892951f06f3c3/play-services-base-17.1.0/res/values-nb/values.xml",
+                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/ad08fb773c69b19de92892951f06f3c3/play-services-base-17.1.0/res/values-nb/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

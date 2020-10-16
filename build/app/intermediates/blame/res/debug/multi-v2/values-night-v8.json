@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/nico/Scrivania/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/nicotrionfetti/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/nico/Scrivania/pafp/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/nicotrionfetti/pafp/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
