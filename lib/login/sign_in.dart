@@ -38,10 +38,10 @@ class _SignIn extends State<SignInPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          /*Text(
             title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          ),*/
           SizedBox(
             height: 10,
           ),
@@ -74,6 +74,26 @@ class _SignIn extends State<SignInPage> {
       child: Text(
         'Registrati',
         style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _choiceButton() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            height: 50, // works
+            child: FlatButton(onPressed: () {},child: Text("Sono un allenatore"),color: Colors.white,textColor: Colors.black,),
+          ),
+          //Spacer(flex: 1),
+          Spacer(),
+          SizedBox(
+            height: 50, // works
+            child: FlatButton(onPressed: () {},child: Text("Sono un allievo"),color: Colors.white,textColor: Colors.black,),
+          ),
+        ],
       ),
     );
   }
@@ -146,6 +166,7 @@ class _SignIn extends State<SignInPage> {
                     SizedBox(
                       height: 20,
                     ),
+                    _choiceButton(),
                     _submitButton(),
                     SizedBox(height: 10),
                     _loginAccountLabel(),
