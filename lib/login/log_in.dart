@@ -41,10 +41,10 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          /*Text(
             title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          ),*/
           SizedBox(
             height: 10,
           ),
@@ -55,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderSide: const BorderSide(color: Colors.blue),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
+                  hintText: title,
                   fillColor:
                       Colors.white, //colore sfondo input email e password
                   filled: true))
