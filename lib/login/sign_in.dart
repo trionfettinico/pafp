@@ -83,7 +83,6 @@ class _SignIn extends State<SignInPage> {
   Widget _choiceButton() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      alignment: Alignment.center,
       child: Row(
         mainAxisAlignment:  MainAxisAlignment.center,
         children: <Widget>[
