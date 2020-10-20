@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'log_in.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage({Key key, this.title}) : super(key: key);
@@ -11,6 +12,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignIn extends State<SignInPage> {
+  List<bool> isSelected = List.generate(2, (_) => false);
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -81,17 +83,21 @@ class _SignIn extends State<SignInPage> {
   Widget _choiceButton() {
     return Container(
       width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
       child: Row(
+        mainAxisAlignment:  MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
-            height: 50, // works
-            child: FlatButton(onPressed: () {},child: Text("Sono un allenatore"),color: Colors.white,textColor: Colors.black,),
-          ),
-          //Spacer(flex: 1),
-          Spacer(),
-          SizedBox(
-            height: 50, // works
-            child: FlatButton(onPressed: () {},child: Text("Sono un allievo"),color: Colors.white,textColor: Colors.black,),
+          ToggleSwitch(
+            minWidth: 150.0,
+            initialLabelIndex: 0,
+            activeFgColor: Colors.white,
+            inactiveBgColor: Colors.grey,
+            inactiveFgColor: Colors.white,
+            labels: ['Allenatore', 'Allievo'],
+            activeBgColors: [Colors.blue, Colors.pink],
+            onToggle: (index) {
+              //print('switched to: $index');
+            },
           ),
         ],
       ),
@@ -164,11 +170,14 @@ class _SignIn extends State<SignInPage> {
                     ),
                     _emailPasswordWidget(),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     _choiceButton(),
+                    SizedBox(
+                      height: 30,
+                    ),
                     _submitButton(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     _loginAccountLabel(),
                   ],
                 ),
