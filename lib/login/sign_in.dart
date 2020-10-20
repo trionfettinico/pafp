@@ -12,7 +12,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignIn extends State<SignInPage> {
-  List<bool> isSelected = List.generate(2, (_) => false);
   Widget _backButton() {
     return InkWell(
       onTap: () {
