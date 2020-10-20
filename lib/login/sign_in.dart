@@ -170,11 +170,11 @@ class _SignIn extends State<SignInPage> {
                     ),
                     _emailPasswordWidget(),
                     SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     _choiceButton(),
                     SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     _submitButton(),
                     SizedBox(height: 5),
