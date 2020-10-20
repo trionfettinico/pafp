@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'log_in.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage({Key key, this.title}) : super(key: key);
@@ -18,7 +17,6 @@ class _SignIn extends State<SignInPage> {
   String _email;
   String _password;
   String _confpassword;
-
 
   Widget _fieldWidget() {
     return Container(
@@ -159,24 +157,7 @@ class _SignIn extends State<SignInPage> {
 
   Widget _choiceButton() {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment:  MainAxisAlignment.center,
-        children: <Widget>[
-          ToggleSwitch(
-            minWidth: 150.0,
-            initialLabelIndex: 0,
-            activeFgColor: Colors.white,
-            inactiveBgColor: Colors.grey,
-            inactiveFgColor: Colors.white,
-            labels: ['Allenatore', 'Allievo'],
-            activeBgColors: [Colors.blue, Colors.pink],
-            onToggle: (index) {
-              //print('switched to: $index');
-            },
-          ),
-        ],
-      ),
+
     );
   }
 
