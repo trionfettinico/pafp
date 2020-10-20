@@ -12,71 +12,149 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignIn extends State<SignInPage> {
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.blue),
-            ),
-            Text('Indietro',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500,color: Colors.blue))
-          ],
-        ),
-      ),
-    );
-  }
+  final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+  final TextEditingController _pass = TextEditingController();
+  String _username;
+  String _email;
+  String _password;
+  String _confpassword;
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+
+  Widget _fieldWidget() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /*Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),*/
-          SizedBox(
-            height: 10,
+          new TextFormField(
+                obscureText: false,
+                validator: (String value) {
+                  if(value.isEmpty){
+                    return 'Il campo non può essere vuoto';
+                  }
+                },
+                onSaved: (String value){
+                  _username = value;
+                },
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    hintText: 'Username',
+                    fillColor: Colors.white,  //colore sfondo input email e password
+                    filled: true)
           ),
-          TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  hintText: title,
-                  fillColor: Colors.white,  //colore sfondo input email e password
-                  filled: true))
+          SizedBox(
+            height: 20,
+          ),
+          new TextFormField(
+                obscureText: false,
+                validator: (String value) {
+                  if(value.isEmpty){
+                    return 'Il campo non può essere vuoto';
+                  }
+
+                  if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)){
+                    return 'Immetti un email valida';
+                  }
+
+                  return null;
+                },
+                onSaved: (String value){
+                  _email = value;
+                },
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    hintText: 'Email',
+                    fillColor: Colors.white,  //colore sfondo input email e password
+                    filled: true)
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          new TextFormField(
+              controller: _pass,
+              obscureText: true,
+                validator: (String value) {
+                  if(value.isEmpty){
+                    return 'Il campo non può essere vuoto';
+                  }
+                },
+                onSaved: (String value){
+                  _password = value;
+                },
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    hintText: 'Password',
+                    fillColor: Colors.white,  //colore sfondo input email e password
+                    filled: true)
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          new TextFormField(
+                obscureText: true,
+                validator: (String value) {
+                  if(value.isEmpty){
+                    return 'Il campo non può essere vuoto';
+                  }
+                  if(value!=_pass.text)
+                  {
+                    return 'La password di conferma non corrisponde';
+                  }
+                },
+                onSaved: (String value){
+                  _confpassword = value;
+                },
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    hintText: 'Conferma Password',
+                    fillColor: Colors.white,  //colore sfondo input email e password
+                    filled: true)
+          ),
         ],
       ),
     );
   }
 
+
   Widget _submitButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(color: Colors.blue)
-          ],
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: 300,
+          height: 50,
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+            color: Colors.blue,
+            onPressed:()
+            {
+              if(!_formKey.currentState.validate()) {
+                return;
+              }
+              _formKey.currentState.save(); //salvo il valore degli input text nelle variabili
+
+              print(_username);
+              print(_email);
+              print(_password);
+              print(_confpassword);
+            },
+            child: Text("Registrati",style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
-      child: Text(
-        'Registrati',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-    );
+        ),
+      );
   }
 
   Widget _choiceButton() {
@@ -109,7 +187,6 @@ class _SignIn extends State<SignInPage> {
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
         padding: EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
         child: Row(
@@ -135,54 +212,35 @@ class _SignIn extends State<SignInPage> {
     );
   }
 
-  Widget _emailPasswordWidget() {
-    return Column(
-      children: <Widget>[
-        _entryField("Username"),
-        _entryField("Email"),
-        _entryField("Password", isPassword: true),
-        _entryField("Conferma Password", isPassword: true),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        height: height,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(16),
+          child: Form(
+              key: _formKey,
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 80),
+                    SizedBox(height: 60),
                     //_title(),
                     SizedBox(
                       height: 5,
                     ),
-                    _emailPasswordWidget(),
+                    _fieldWidget(),
                     SizedBox(
                       height: 40,
                     ),
                     _choiceButton(),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                     ),
                     _submitButton(),
-                    SizedBox(height: 5),
                     _loginAccountLabel(),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(top: 40, left: 0, child: _backButton()),
-          ],
+                  ]
+              )
+          ),
         ),
       ),
     );
