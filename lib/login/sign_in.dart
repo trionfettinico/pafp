@@ -18,6 +18,11 @@ class _SignIn extends State<SignInPage> {
   String _password;
   String _confpassword;
 
+  void Register(){
+    //chiamo la funzione per la registrazione
+
+  }
+
   Widget _fieldWidget() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -148,6 +153,8 @@ class _SignIn extends State<SignInPage> {
               print(_email);
               print(_password);
               print(_confpassword);
+
+              Register();
             },
             child: Text("Registrati",style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
