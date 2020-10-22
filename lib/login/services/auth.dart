@@ -1,25 +1,28 @@
-import 'package:pafp/login/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// da controllare
+
 class AuthService {
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // create user obj based on FirebaseUser
-  Users _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? Users(uid: user.uid) : null;
+  // sign in with email & password
+  void signInAndSubmit(String _email , String _password) async {
+    try{
+      await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+    }
+    catch(e){
+      print(e);
+    }
   }
 
-  // sign in with email & password
-
   // register with email & password
-  void registerWithEmailAndPassword(String email, String password) async {
-    try {
-      FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-              email: email, password: password))
-          .user;
-      // create a new document for the user with the uid
-    } catch (error) {
-      print(error.toString());
+  void register(String _email , String _password) async {
+    try{
+      await _auth.createUserWithEmailAndPassword(email: _email, password: _password);
+    }
+    catch(e){
+      print(e);
     }
   }
 
