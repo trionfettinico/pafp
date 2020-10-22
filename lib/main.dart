@@ -4,7 +4,7 @@ import 'login/welcome.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firesbase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

@@ -17,7 +17,6 @@ class AuthService {
 
   Future<FirebaseUser> currentUser() async {
     FirebaseUser user = _firebaseAuth.currentUser as FirebaseUser;
-    print("uid ${user.uid}");
     return user;
   }
 
