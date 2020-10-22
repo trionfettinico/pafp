@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
+import 'package:pafp/login/services/auth.dart';
+import 'package:pafp/login/sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
-
   final String title;
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
+  final AuthService auth = AuthService();
+
+void LogIn(String _email,String _password) async {
+    String prova =  await auth.createUser(_email, _password);
+    print(prova);
+  }
 
 class _LoginPageState extends State<LoginPage> {
   Widget _backButton() {
@@ -73,10 +80,15 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.all(Radius.circular(5)),
         boxShadow: <BoxShadow>[BoxShadow(color: Colors.blue)],
       ),
-      child: Text(
-        'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
+      child: RaisedButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+            color: Colors.blue,
+            onPressed:()
+            {
+              
+            },
+            child: Text("Log in",style: TextStyle(fontSize: 20, color: Colors.white)),
+          ),
     );
   }
 

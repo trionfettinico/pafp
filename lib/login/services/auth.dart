@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+// da controllare
+
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -14,16 +16,13 @@ class AuthService {
   }
 
   Future<FirebaseUser> currentUser() async {
-    FirebaseUser user = await _firebaseAuth.currentUser;
+    FirebaseUser user = _firebaseAuth.currentUser as FirebaseUser;
     print("uid ${user.uid}");
     return user;
   }
 
-  Future<String> getEmail() async{
-    FirebaseUser user = await _firebaseAuth.currentUser;
-    return user.email;
-  }
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
   }
+
 }
