@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/nicotrionfetti/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lo/values-lo.xml",
+            "outputFile": "/Users/trionfettinico/Projects/Flutter/pafp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lo/values-lo.xml",
             "map": [
                 {
-                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/03de50801950aab64f0548832a05435c/core-1.1.0/res/values-lo/values-lo.xml",
+                    "source": "/Users/trionfettinico/.gradle/caches/transforms-2/files-2.1/e4b0f4b755d62c1edc83b50bed8f603e/jetified-play-services-basement-17.0.0/res/values-lo/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "190",
+                        "endOffsets": "437"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1279",
+                        "endColumns": "190",
+                        "endOffsets": "1465"
+                    }
+                },
+                {
+                    "source": "/Users/trionfettinico/.gradle/caches/transforms-2/files-2.1/03de50801950aab64f0548832a05435c/core-1.1.0/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/ad08fb773c69b19de92892951f06f3c3/play-services-base-17.1.0/res/values-lo/values.xml",
+                    "source": "/Users/trionfettinico/.gradle/caches/transforms-2/files-2.1/ad08fb773c69b19de92892951f06f3c3/play-services-base-17.1.0/res/values-lo/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -35,23 +52,6 @@
                         "startOffsets": "105,215,417,549,658,869,996,1134,1470,1681,1788,1985,2116,2346,2537,2635,2734",
                         "endColumns": "109,201,131,108,210,126,137,144,210,106,196,130,229,190,97,98,113",
                         "endOffsets": "210,412,544,653,864,991,1129,1274,1676,1783,1980,2111,2341,2532,2630,2729,2843"
-                    }
-                },
-                {
-                    "source": "/Users/nicotrionfetti/.gradle/caches/transforms-2/files-2.1/229915f355dfcd9c793c5a79b421f7ee/jetified-play-services-basement-17.0.0/res/values-lo/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "190",
-                        "endOffsets": "437"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1279",
-                        "endColumns": "190",
-                        "endOffsets": "1465"
                     }
                 }
             ]
