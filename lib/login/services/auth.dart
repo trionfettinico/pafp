@@ -2,33 +2,29 @@ import 'package:pafp/login/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  // create user obj based on FirebaseUser
-  Users _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? Users(uid: user.uid) : null;
+  Future<String> signIn(String email, String password) async {
+    FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)) as FirebaseUser;
+    return user.uid;
   }
 
-  // sign in with email & password
-
-  // register with email & password
-  void registerWithEmailAndPassword(String email, String password) async {
-    try {
-      FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-              email: email, password: password))
-          .user;
-      // create a new document for the user with the uid
-    } catch (error) {
-      print(error.toString());
-    }
+  Future<String> createUser(String email, String password) async {
+    FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)) as FirebaseUser;
+    return user.uid;
   }
 
-  // sign out
-  void signOut() async {
-    try {
-      return await _auth.signOut();
-    } catch (error) {
-      print(error.toString());
-    }
+  Future<FirebaseUser> currentUser() async {
+    FirebaseUser user = await _firebaseAuth.currentUser;
+    print("uid ${user.uid}");
+    return user;
+  }
+
+  Future<String> getEmail() async{
+    FirebaseUser user = await _firebaseAuth.currentUser;
+    return user.email;
+  }
+  Future<void> signOut() async {
+    return _firebaseAuth.signOut();
   }
 }
