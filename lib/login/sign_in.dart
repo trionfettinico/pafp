@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pafp/login/services/auth.dart';
+
 import 'log_in.dart';
 
 class SignInPage extends StatefulWidget {
@@ -18,9 +20,11 @@ class _SignIn extends State<SignInPage> {
   String _password;
   String _confpassword;
 
-  void Register(){
-    //chiamo la funzione per la registrazione
+  final AuthService auth = AuthService();
 
+  void Register() async {
+    String prova =  await auth.createUser(_email, _password);
+    print(prova);
   }
 
   Widget _fieldWidget() {
