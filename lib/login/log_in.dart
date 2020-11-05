@@ -17,7 +17,7 @@ void LogIn(String _email,String _password) async {
   }
 
 class _LoginPageState extends State<LoginPage> {
-  Widget _backButton() {
+  /*Widget _backButton() {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
+  }*/
 
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Positioned(top: 40, left: 0, child: _backButton()),
+          //Positioned(top: 40, left: 0, child: _backButton()),
         ],
       ),
     ));
