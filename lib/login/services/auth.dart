@@ -12,14 +12,23 @@ class AuthService {
     return user.uid;
   }
 
-  Future<UserCredential> createUserAllievo(
+  Future<String> createUserAllievo(
       String username, String email, String password) async {
-    UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    DatabaseService datab = DatabaseService('allievo');
-    Map<String, String> prova = {"username": username, "email": email};
-    datab.addDocument(prova);
-    return user;
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      DatabaseService datab = DatabaseService('allievo');
+      Map<String, dynamic> prova = {"username": username, "email": email};
+      datab.addDocument(prova);
+      print(await datab.getTypeAccount(email));
+      return "OK";
+    } catch (e) {
+      if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
+        return "email-already-in-use";
+      } else if (e.toString().contains("[firebase_auth/weak-password]")) {
+        return "weak-password";
+      }
+    }
   }
 
   Future<UserCredential> createUserAllenatore(
@@ -27,7 +36,7 @@ class AuthService {
     UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     DatabaseService datab = DatabaseService('allenatore');
-    Map<String, String> prova = {"username": username, "email": email};
+    Map<String, dynamic> prova = {"username": username, "email": email};
     datab.addDocument(prova);
     return user;
   }
