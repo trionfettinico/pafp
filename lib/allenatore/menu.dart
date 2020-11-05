@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MenuPage extends StatefulWidget {
-  MenuPage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MenuPageState createState() => _MenuPageState();
 }
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedItemIndex=0;
+  final List pages = [
+    MenuPage(),
+    null,
+    null,
+    null,
+  ];
   @override
   Widget build(BuildContext context)
   {
@@ -23,6 +25,7 @@ class _MenuPageState extends State<MenuPage> {
           buildNavBarItem(Icons.settings,3),
         ],
       ),
+      body: pages[_selectedItemIndex],
     );
   }
 
@@ -42,7 +45,7 @@ class _MenuPageState extends State<MenuPage> {
         ),
         child: Icon(
             icon,
-            color: index == _selectedItemIndex ? Colors.white:Colors.black
+            color: index == _selectedItemIndex ? Colors.white : Colors.black
         ),
       ),
     );
