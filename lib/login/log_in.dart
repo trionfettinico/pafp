@@ -10,9 +10,12 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-final AuthService auth = AuthService();
+  final AuthService auth = AuthService();
 
-void LogIn(String _email, String _password) async {}
+void LogIn(String _email,String _password) async {
+    String prova =  await auth.createUser(_email, _password);
+    print(prova);
+  }
 
 class _LoginPageState extends State<LoginPage> {
   Widget _backButton() {
@@ -78,12 +81,14 @@ class _LoginPageState extends State<LoginPage> {
         boxShadow: <BoxShadow>[BoxShadow(color: Colors.blue)],
       ),
       child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        color: Colors.blue,
-        onPressed: () {},
-        child:
-            Text("Log in", style: TextStyle(fontSize: 20, color: Colors.white)),
-      ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+            color: Colors.blue,
+            onPressed:()
+            {
+              
+            },
+            child: Text("Log in",style: TextStyle(fontSize: 20, color: Colors.white)),
+          ),
     );
   }
 
