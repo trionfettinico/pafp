@@ -13,8 +13,7 @@ class LoginPage extends StatefulWidget {
   final AuthService auth = AuthService();
 
 void LogIn(String _email,String _password) async {
-    String prova =  await auth.createUser(_email, _password);
-    print(prova);
+
   }
 
 class _LoginPageState extends State<LoginPage> {
