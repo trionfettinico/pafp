@@ -75,19 +75,19 @@ class _LoginPageState extends State<LoginPage> {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: <BoxShadow>[BoxShadow(color: Colors.blue)],
+      child: SizedBox(
+      width: 300,
+      height: 50,
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          color: Colors.blue,
+          onPressed:()
+          {
+
+          },
+          child: Text("Log in",style: TextStyle(fontSize: 20, color: Colors.white)),
+        ),
       ),
-      child: RaisedButton(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-            color: Colors.blue,
-            onPressed:()
-            {
-              
-            },
-            child: Text("Log in",style: TextStyle(fontSize: 20, color: Colors.white)),
-          ),
     );
   }
 
@@ -204,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                   _submitButton(),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: Text('Password dimenticata ?',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500)),
