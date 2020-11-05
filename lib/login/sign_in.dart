@@ -23,8 +23,7 @@ class _SignIn extends State<SignInPage> {
   final AuthService auth = AuthService();
 
   void Register() async {
-    String prova =  await auth.createUser(_email, _password);
-    print(prova);
+    await auth.createUserAllievo(_username, _email, _password);
   }
 
   Widget _fieldWidget() {
