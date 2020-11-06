@@ -21,8 +21,12 @@ class _CalendarioPageState extends State<CalendarioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text("Calendario"),
+          automaticallyImplyLeading: false // rimuove il pulsante di ritorno
+      ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

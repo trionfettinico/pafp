@@ -11,7 +11,11 @@ class _ImpostazioniPageState extends State<ImpostazioniPage> {
   Widget build(BuildContext context)
   {
     return Scaffold(
-
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text("Impostazioni"),
+          automaticallyImplyLeading: false // rimuove il pulsante di ritorno
+      ),
     );
   }
 }

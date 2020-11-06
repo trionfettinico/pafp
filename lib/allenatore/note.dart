@@ -10,7 +10,11 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text("Note"),
+          automaticallyImplyLeading: false // rimuove il pulsante di ritorno
+      ),
     );
   }
 }
