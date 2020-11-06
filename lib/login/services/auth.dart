@@ -4,6 +4,7 @@ import 'package:pafp/database/database.dart';
 // da controllare
 
 class AuthService {
+  DatabaseService _datab;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signIn(String email, String password) async {
@@ -14,31 +15,44 @@ class AuthService {
 
   Future<String> createUserAllievo(
       String username, String email, String password) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      DatabaseService datab = DatabaseService('allievo');
-      Map<String, dynamic> prova = {"username": username, "email": email};
-      datab.addDocument(prova);
-      print(await datab.getTypeAccount(email));
-      return "OK";
-    } catch (e) {
-      if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
-        return "email-already-in-use";
-      } else if (e.toString().contains("[firebase_auth/weak-password]")) {
-        return "weak-password";
+    if (await _datab.checkUsernameIfExist(username) == false) {
+      try {
+        await _firebaseAuth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        _datab = DatabaseService('allievo');
+        Map<String, dynamic> prova = {"username": username, "email": email};
+        _datab.addDocument(prova);
+        return "OK";
+      } catch (e) {
+        if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
+          return "email-already-in-use";
+        } else if (e.toString().contains("[firebase_auth/weak-password]")) {
+          return "weak-password";
+        }
       }
     }
+    return "username-presente";
   }
 
-  Future<UserCredential> createUserAllenatore(
+  Future<String> createUserAllenatore(
       String username, String email, String password) async {
-    UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    DatabaseService datab = DatabaseService('allenatore');
-    Map<String, dynamic> prova = {"username": username, "email": email};
-    datab.addDocument(prova);
-    return user;
+    if (await _datab.checkUsernameIfExist(username) == false) {
+      try {
+        await _firebaseAuth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        _datab = DatabaseService('allenatore');
+        Map<String, dynamic> prova = {"username": username, "email": email};
+        _datab.addDocument(prova);
+        return "OK";
+      } catch (e) {
+        if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
+          return "email-already-in-use";
+        } else if (e.toString().contains("[firebase_auth/weak-password]")) {
+          return "weak-password";
+        }
+      }
+    }
+    return "username-presente";
   }
 
   Future<User> currentUser() async {

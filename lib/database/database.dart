@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/animation.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -27,6 +28,35 @@ class DatabaseService {
         return "allievo";
       }
     });
+  }
+
+  Future<bool> checkUsernameIfExist(String username) async {
+    QuerySnapshot snap = await _db.collection("allenatore").get();
+    String app;
+    try {
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
+          throw ("find");
+        }
+      });
+    } catch (e) {
+      return true;
+    }
+    try {
+      snap = await _db.collection("allievo").get();
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
+          throw ("find");
+        }
+      });
+    } catch (e) {
+      return true;
+    }
+    return false;
   }
 
   Future<QuerySnapshot> getDataCollection() {

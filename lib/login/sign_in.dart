@@ -13,7 +13,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignIn extends State<SignInPage> {
-  final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
   String _username;
   String _email;
@@ -33,142 +33,142 @@ class _SignIn extends State<SignInPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new TextFormField(
-                obscureText: false,
-                validator: (String value) {
-                  if(value.isEmpty){
-                    return 'Il campo non può essere vuoto';
-                  }
-                },
-                onSaved: (String value){
-                  _username = value;
-                },
-                decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    hintText: 'Username',
-                    fillColor: Colors.white,  //colore sfondo input email e password
-                    filled: true)
-          ),
+              obscureText: false,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Il campo non può essere vuoto';
+                }
+              },
+              onSaved: (String value) {
+                _username = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Username',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
           SizedBox(
             height: 20,
           ),
           new TextFormField(
-                obscureText: false,
-                validator: (String value) {
-                  if(value.isEmpty){
-                    return 'Il campo non può essere vuoto';
-                  }
+              obscureText: false,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Il campo non può essere vuoto';
+                }
 
-                  if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)){
-                    return 'Immetti un email valida';
-                  }
+                if (!RegExp(
+                        "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
+                    .hasMatch(value)) {
+                  return 'Immetti un email valida';
+                }
 
-                  return null;
-                },
-                onSaved: (String value){
-                  _email = value;
-                },
-                decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    hintText: 'Email',
-                    fillColor: Colors.white,  //colore sfondo input email e password
-                    filled: true)
-          ),
+                return null;
+              },
+              onSaved: (String value) {
+                _email = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Email',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
           SizedBox(
             height: 20,
           ),
           new TextFormField(
               controller: _pass,
               obscureText: true,
-                validator: (String value) {
-                  if(value.isEmpty){
-                    return 'Il campo non può essere vuoto';
-                  }
-                },
-                onSaved: (String value){
-                  _password = value;
-                },
-                decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    hintText: 'Password',
-                    fillColor: Colors.white,  //colore sfondo input email e password
-                    filled: true)
-          ),
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Il campo non può essere vuoto';
+                }
+              },
+              onSaved: (String value) {
+                _password = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Password',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
           SizedBox(
             height: 20,
           ),
           new TextFormField(
-                obscureText: true,
-                validator: (String value) {
-                  if(value.isEmpty){
-                    return 'Il campo non può essere vuoto';
-                  }
-                  if(value!=_pass.text)
-                  {
-                    return 'La password di conferma non corrisponde';
-                  }
-                },
-                onSaved: (String value){
-                  _confpassword = value;
-                },
-                decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    hintText: 'Conferma Password',
-                    fillColor: Colors.white,  //colore sfondo input email e password
-                    filled: true)
-          ),
+              obscureText: true,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Il campo non può essere vuoto';
+                }
+                if (value != _pass.text) {
+                  return 'La password di conferma non corrisponde';
+                }
+              },
+              onSaved: (String value) {
+                _confpassword = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Conferma Password',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
         ],
       ),
     );
   }
 
-
   Widget _submitButton() {
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: 300,
-          height: 50,
-          child: RaisedButton(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-            color: Colors.blue,
-            onPressed:()
-            {
-              if(!_formKey.currentState.validate()) {
-                return;
-              }
-              _formKey.currentState.save(); //salvo il valore degli input text nelle variabili
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: 300,
+        height: 50,
+        child: RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          color: Colors.blue,
+          onPressed: () {
+            if (!_formKey.currentState.validate()) {
+              return;
+            }
+            _formKey.currentState
+                .save(); //salvo il valore degli input text nelle variabili
 
-              print(_username);
-              print(_email);
-              print(_password);
-              print(_confpassword);
+            print(_username);
+            print(_email);
+            print(_password);
+            print(_confpassword);
 
-              Register();
-            },
-            child: Text("Registrati",style: TextStyle(fontSize: 20, color: Colors.white)),
-          ),
+            Register();
+          },
+          child: Text("Registrati",
+              style: TextStyle(fontSize: 20, color: Colors.white)),
         ),
-      );
+      ),
+    );
   }
 
   Widget _choiceButton() {
-    return Container(
-
-    );
+    return Container();
   }
 
   Widget _loginAccountLabel() {
@@ -229,9 +229,7 @@ class _SignIn extends State<SignInPage> {
                     ),
                     _submitButton(),
                     _loginAccountLabel(),
-                  ]
-              )
-          ),
+                  ])),
         ),
       ),
     );

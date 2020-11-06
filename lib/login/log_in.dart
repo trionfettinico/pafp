@@ -11,15 +11,11 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-  final AuthService auth = AuthService();
+final AuthService auth = AuthService();
 
-void LogIn(String _email,String _password) async {
+void LogIn(String _email, String _password) async {}
 
-  }
-
-class _LoginPageState extends State<LoginPage>
-{
-
+class _LoginPageState extends State<LoginPage> {
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -55,17 +51,18 @@ class _LoginPageState extends State<LoginPage>
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
       child: SizedBox(
-      width: 300,
-      height: 50,
+        width: 300,
+        height: 50,
         child: RaisedButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.blue,
-          onPressed:()
-          {
+          onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => MenuPage()));
           },
-          child: Text("Login",style: TextStyle(fontSize: 20, color: Colors.white)),
+          child: Text("Login",
+              style: TextStyle(fontSize: 20, color: Colors.white)),
         ),
       ),
     );
