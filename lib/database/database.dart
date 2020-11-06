@@ -9,6 +9,26 @@ class DatabaseService {
     ref = _db.collection(path);
   }
 
+  Future<String> getTypeAccount(String email) async {
+    QuerySnapshot snap = await _db.collection("allenatore").get();
+    String app;
+    snap.docs.forEach((element) {
+      app = element.data().toString().split("email:")[1];
+      app = app.split(",")[0].trim();
+      if (app == email) {
+        return "allenatore";
+      }
+    });
+    snap = await _db.collection("allievo").get();
+    snap.docs.forEach((element) {
+      app = element.data().toString().split("email:")[1];
+      app = app.split(",")[0].trim();
+      if (app == email) {
+        return "allievo";
+      }
+    });
+  }
+
   Future<QuerySnapshot> getDataCollection() {
     return ref.get();
   }
