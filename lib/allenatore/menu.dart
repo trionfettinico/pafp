@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pafp/allenatore/calendario.dart';
+import 'package:pafp/allenatore/impostazioni.dart';
+import 'package:pafp/allenatore/lista_allievi.dart';
+import 'package:pafp/allenatore/note.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -8,10 +12,10 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   int _selectedItemIndex=0;
   final List pages = [
-    MenuPage(),
-    null,
-    null,
-    null,
+    ListaAllieviPage(),
+    NotePage(),
+    CalendarioPage(),
+    ImpostazioniPage(),
   ];
   @override
   Widget build(BuildContext context)
