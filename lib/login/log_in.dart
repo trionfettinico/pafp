@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pafp/allenatore/menu.dart';
 import 'package:pafp/login/services/auth.dart';
 import 'package:pafp/login/sign_in.dart';
 
@@ -61,9 +62,10 @@ class _LoginPageState extends State<LoginPage>
           color: Colors.blue,
           onPressed:()
           {
-
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MenuPage()));
           },
-          child: Text("Log in",style: TextStyle(fontSize: 20, color: Colors.white)),
+          child: Text("Login",style: TextStyle(fontSize: 20, color: Colors.white)),
         ),
       ),
     );
