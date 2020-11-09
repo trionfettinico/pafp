@@ -8,20 +8,25 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signIn(String email, String password) async {
-    User user = (await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password)) as User;
-    return user.uid;
+    String app = await _datab.getEmailFromUsername(email);
+    if (app != "assente") {
+      User user = (await _firebaseAuth.signInWithEmailAndPassword(
+          email: app, password: password)) as User;
+      return user.uid;
+    } else {
+      return "username-assente";
+    }
   }
 
   Future<String> createUserAllievo(
       String username, String email, String password) async {
+    _datab = DatabaseService();
     if (await _datab.checkUsernameIfExist(username) == false) {
       try {
         await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password);
-        _datab = DatabaseService('allievo');
         Map<String, dynamic> prova = {"username": username, "email": email};
-        _datab.addDocument(prova);
+        _datab.addAllievo(prova);
         return "OK";
       } catch (e) {
         if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
@@ -36,13 +41,13 @@ class AuthService {
 
   Future<String> createUserAllenatore(
       String username, String email, String password) async {
+    _datab = DatabaseService();
     if (await _datab.checkUsernameIfExist(username) == false) {
       try {
         await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password);
-        _datab = DatabaseService('allenatore');
         Map<String, dynamic> prova = {"username": username, "email": email};
-        _datab.addDocument(prova);
+        _datab.addAllenatore(prova);
         return "OK";
       } catch (e) {
         if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
@@ -51,8 +56,8 @@ class AuthService {
           return "weak-password";
         }
       }
-    }
-    return "username-presente";
+    } else
+      return "username-presente";
   }
 
   Future<User> currentUser() async {

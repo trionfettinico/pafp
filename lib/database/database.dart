@@ -1,33 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/animation.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final String path;
   CollectionReference ref;
 
-  DatabaseService(this.path) {
-    ref = _db.collection(path);
-  }
+  DatabaseService();
 
   Future<String> getTypeAccount(String email) async {
     QuerySnapshot snap = await _db.collection("allenatore").get();
     String app;
-    snap.docs.forEach((element) {
-      app = element.data().toString().split("email:")[1];
-      app = app.split(",")[0].trim();
-      if (app == email) {
-        return "allenatore";
-      }
-    });
-    snap = await _db.collection("allievo").get();
-    snap.docs.forEach((element) {
-      app = element.data().toString().split("email:")[1];
-      app = app.split(",")[0].trim();
-      if (app == email) {
-        return "allievo";
-      }
-    });
+    try {
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        app = element.data().toString().split("email:")[1];
+        app = app.split(",")[0].trim();
+        if (app == email) {
+          throw "allenatore";
+        }
+      });
+    } catch (e) {
+      return e.toString();
+    }
+    try {
+      snap = await _db.collection("allievo").get();
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        app = element.data().toString().split("email:")[1];
+        app = app.split(",")[0].trim();
+        if (app == email) {
+          throw "allievo";
+        }
+      });
+    } catch (e) {
+      return e.toString();
+    }
+    return "assente";
   }
 
   Future<bool> checkUsernameIfExist(String username) async {
@@ -59,6 +68,39 @@ class DatabaseService {
     return false;
   }
 
+  Future<String> getEmailFromUsername(String username) async {
+    QuerySnapshot snap = await _db.collection("allenatore").get();
+    String app;
+    try {
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
+          app = element.data().toString().split("email:")[1];
+          app = app.split(",")[0].trim();
+          throw (app);
+        }
+      });
+    } catch (e) {
+      return e.toString();
+    }
+    try {
+      snap = await _db.collection("allievo").get();
+      snap.docs.forEach((element) {
+        app = element.data().toString().split("username:")[1];
+        app = app.split("}")[0].trim();
+        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
+          app = element.data().toString().split("email:")[1];
+          app = app.split(",")[0].trim();
+          throw (app);
+        }
+      });
+    } catch (e) {
+      return e.toString();
+    }
+    return "username-assente";
+  }
+
   Future<QuerySnapshot> getDataCollection() {
     return ref.get();
   }
@@ -75,7 +117,13 @@ class DatabaseService {
     return ref.doc(id).delete();
   }
 
-  Future<DocumentReference> addDocument(Map data) {
+  Future<DocumentReference> addAllievo(Map data) {
+    ref = _db.collection('allievo');
+    return ref.add(data);
+  }
+
+  Future<DocumentReference> addAllenatore(Map data) {
+    ref = _db.collection('allenatore');
     return ref.add(data);
   }
 
