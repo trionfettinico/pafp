@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
-
 import 'log_in.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,15 +14,58 @@ class SignInPage extends StatefulWidget {
 class _SignIn extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
+  final AuthService auth = AuthService();
   String _username;
   String _email;
   String _password;
   String _confpassword;
+  String _ris;    //variabile che contiene la risposta del servizio relativo alla registrazione
 
-  final AuthService auth = AuthService();
+  String ValidateUsername(String value)
+  {
+    if(value.isEmpty)
+      {
+        return 'il campo non può essere vuoto';
+      }
+  }
 
-  void Register() async {
+  String ValidateEmail(String value)
+  {
+    if (value.isEmpty) {
+      return 'Il campo non può essere vuoto';
+    }
+
+    if (!RegExp(
+        "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
+        .hasMatch(value)) {
+      return 'Immetti un email valida';
+    }
+  }
+
+  String ValidatePassword(String value)
+  {
+    if (value.isEmpty) {
+      return 'Il campo non può essere vuoto';
+    }
+  }
+
+  String ValidateConfPassword(String value)
+  {
+    if (value.isEmpty) {
+      return 'Il campo non può essere vuoto';
+    }
+    if (value != _pass.text) {
+      return 'La password di conferma non corrisponde';
+    }
+  }
+
+  /*void Register() async {
     await auth.createUserAllievo(_username, _email, _password);
+  }*/
+
+  Future<void> Register(String username,String email,String password) async {
+    String ris = await auth.createUserAllievo(username, email, password);
+    _ris=ris;
   }
 
   Widget _fieldWidget() {
@@ -34,11 +76,7 @@ class _SignIn extends State<SignInPage> {
         children: <Widget>[
           new TextFormField(
               obscureText: false,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Il campo non può essere vuoto';
-                }
-              },
+              validator: ValidateUsername,
               onSaved: (String value) {
                 _username = value;
               },
@@ -56,19 +94,7 @@ class _SignIn extends State<SignInPage> {
           ),
           new TextFormField(
               obscureText: false,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Il campo non può essere vuoto';
-                }
-
-                if (!RegExp(
-                        "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
-                    .hasMatch(value)) {
-                  return 'Immetti un email valida';
-                }
-
-                return null;
-              },
+              validator: ValidateEmail,
               onSaved: (String value) {
                 _email = value;
               },
@@ -87,11 +113,7 @@ class _SignIn extends State<SignInPage> {
           new TextFormField(
               controller: _pass,
               obscureText: true,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Il campo non può essere vuoto';
-                }
-              },
+              validator: ValidatePassword,
               onSaved: (String value) {
                 _password = value;
               },
@@ -109,14 +131,7 @@ class _SignIn extends State<SignInPage> {
           ),
           new TextFormField(
               obscureText: true,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Il campo non può essere vuoto';
-                }
-                if (value != _pass.text) {
-                  return 'La password di conferma non corrisponde';
-                }
-              },
+              validator: ValidateConfPassword,
               onSaved: (String value) {
                 _confpassword = value;
               },
@@ -150,15 +165,23 @@ class _SignIn extends State<SignInPage> {
             if (!_formKey.currentState.validate()) {
               return;
             }
-            _formKey.currentState
-                .save(); //salvo il valore degli input text nelle variabili
+            _formKey.currentState.save(); //salvo il valore degli input text nelle variabili
 
             print(_username);
             print(_email);
             print(_password);
             print(_confpassword);
 
-            Register();
+            Register(_username,_email,_password);
+            print(_ris);
+            if(_ris=='OK')
+            {
+                //procedura per prendere il ruolo
+                //procedura per settare il menu in base al ruolo
+            }
+            else {
+
+            }
           },
           child: Text("Registrati",
               style: TextStyle(fontSize: 20, color: Colors.white)),
