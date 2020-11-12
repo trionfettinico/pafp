@@ -15,28 +15,25 @@ class SignInPage extends StatefulWidget {
 class _SignIn extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
+  final TextEditingController _user = TextEditingController();
   final AuthService auth = AuthService();
   final DatabaseService db = DatabaseService();
+
+  String UsernameValidator;
+
   String _username;
   String _email;
   String _password;
   String _confpassword;
   String _risreg;    //variabile che contiene la risposta del servizio relativo alla registrazione
   String _risusername;
-  String _risemail;
+  //String _risemail;
 
   String ValidateUsername(String value)
   {
       if(value.isEmpty)
       {
         return 'il campo non può essere vuoto';
-      }
-
-      //funzione ws nico
-      getTypeAccountUsername(value);
-      if(_risusername=='allievo' || _risusername=='allenatore')
-      {
-        return 'username già utilizzato';
       }
 
   }
@@ -51,13 +48,6 @@ class _SignIn extends State<SignInPage> {
         "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
         .hasMatch(value)) {
       return 'Immetti un email valida';
-    }
-
-    //funzione ws nico
-    getTypeAccountEmail(value);
-    if(_risemail=='allievo' || _risemail=='allenatore')
-    {
-      return 'email già utilizzata';
     }
 
   }
@@ -98,11 +88,11 @@ class _SignIn extends State<SignInPage> {
     _risusername = ris;
   }
 
-  Future<void> getTypeAccountEmail(String email) async {
+  /*Future<void> getTypeAccountEmail(String email) async {
     String ris = await db.getTypeAccountEmail(email);
     //print(ris);
-    _risemail = ris;
-  }
+    //_risemail = ris;
+  }*/
 
   Widget _fieldWidget() {
     return Container(
@@ -112,7 +102,10 @@ class _SignIn extends State<SignInPage> {
         children: <Widget>[
           new TextFormField(
               obscureText: false,
-              validator: ValidateUsername,
+              controller: _user,
+              validator: (value){
+                return UsernameValidator;
+              },
               onSaved: (String value) {
                 _username = value;
               },
@@ -197,7 +190,14 @@ class _SignIn extends State<SignInPage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.blue,
-          onPressed: () {
+          onPressed: () async {
+            await getTypeAccountUsername(_user.text);
+
+            setState(() {
+              this.UsernameValidator = _risusername;
+              return;
+            });
+            
             if (!_formKey.currentState.validate()) {
               return;
             }
