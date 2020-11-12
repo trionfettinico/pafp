@@ -20,8 +20,6 @@ class _SignIn extends State<SignInPage> {
   String _password;
   String _confpassword;
   String _risreg;    //variabile che contiene la risposta del servizio relativo alla registrazione
-  //String _risusername; //variabile che contiene la risposta del servizio relativo all'esistenza dell'username
-  //String _risemail; //variabile che contiene la risposta del servizio relativo all'esistenza dell'email
 
   String ValidateUsername(String value)
   {
