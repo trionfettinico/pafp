@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
 import 'log_in.dart';
+import 'package:pafp/database/database.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage({Key key, this.title}) : super(key: key);
@@ -15,11 +16,14 @@ class _SignIn extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
   final AuthService auth = AuthService();
+  final DatabaseService db = DatabaseService();
   String _username;
   String _email;
   String _password;
   String _confpassword;
   String _risreg;    //variabile che contiene la risposta del servizio relativo alla registrazione
+  String _risusername;
+  String _risemail;
 
   String ValidateUsername(String value)
   {
@@ -29,6 +33,11 @@ class _SignIn extends State<SignInPage> {
       }
 
       //funzione ws nico
+      getTypeAccountUsername(value);
+      if(_risusername=='allievo' || _risusername=='allenatore')
+      {
+        return 'username già utilizzato';
+      }
 
   }
 
@@ -45,6 +54,11 @@ class _SignIn extends State<SignInPage> {
     }
 
     //funzione ws nico
+    getTypeAccountEmail(value);
+    if(_risemail=='allievo' || _risemail=='allenatore')
+    {
+      return 'email già utilizzata';
+    }
 
   }
 
@@ -75,7 +89,19 @@ class _SignIn extends State<SignInPage> {
 
   Future<void> Register(String username,String email,String password) async {
     String ris = await auth.createUserAllievo(username, email, password);
-    _risreg=ris;
+    _risreg = ris;
+  }
+
+  Future<void> getTypeAccountUsername(String username) async {
+    String ris = await db.getTypeAccountUsername(username);
+    //print(ris);
+    _risusername = ris;
+  }
+
+  Future<void> getTypeAccountEmail(String email) async {
+    String ris = await db.getTypeAccountEmail(email);
+    //print(ris);
+    _risemail = ris;
   }
 
   Widget _fieldWidget() {
