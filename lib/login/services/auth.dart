@@ -21,13 +21,38 @@ class AuthService {
   Future<String> createUserAllievo(
       String username, String email, String password) async {
     _datab = DatabaseService();
-    if (await _datab.checkUsernameIfExist(username) == false) {
+    var app = await _datab.checkUsernameIfExist(username);
+    if (app == false) {
       try {
         await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password);
         Map<String, dynamic> prova = {"username": username, "email": email};
         _datab.addAllievo(prova);
+        _datab.getEmailFromUsername(username);
         return "OK";
+      } catch (e) {
+        if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
+          return "email-already-in-use";
+        } else if (e.toString().contains("[firebase_auth/weak-password]")) {
+          return "weak-password";
+        }
+      }
+    } else {
+      return "username-presente";
+    }
+  }
+
+  Future<String> createUserAllenatore(
+      String username, String email, String password) async {
+    _datab = DatabaseService();
+    var app = await _datab.checkUsernameIfExist(username);
+    if (app == false) {
+      try {
+        await _firebaseAuth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        Map<String, dynamic> prova = {"username": username, "email": email};
+        _datab.addAllenatore(prova);
+        return "ok";
       } catch (e) {
         if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
           return "email-already-in-use";
@@ -37,27 +62,6 @@ class AuthService {
       }
     }
     return "username-presente";
-  }
-
-  Future<String> createUserAllenatore(
-      String username, String email, String password) async {
-    _datab = DatabaseService();
-    if (await _datab.checkUsernameIfExist(username) == false) {
-      try {
-        await _firebaseAuth.createUserWithEmailAndPassword(
-            email: email, password: password);
-        Map<String, dynamic> prova = {"username": username, "email": email};
-        _datab.addAllenatore(prova);
-        return "OK";
-      } catch (e) {
-        if (e.toString().contains("[firebase_auth/email-already-in-use]")) {
-          return "email-already-in-use";
-        } else if (e.toString().contains("[firebase_auth/weak-password]")) {
-          return "weak-password";
-        }
-      }
-    } else
-      return "username-presente";
   }
 
   Future<User> currentUser() async {
