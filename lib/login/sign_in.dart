@@ -21,50 +21,47 @@ class _SignIn extends State<SignInPage> {
 
   String UsernameValidator;
 
+  String checkUser;
+
   String _username;
   String _email;
   String _password;
   String _confpassword;
-  String _risreg;    //variabile che contiene la risposta del servizio relativo alla registrazione
-  String _risusername;
+  String
+      _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
+  String _risusername; //variabile di appoggio servizio
   //String _risemail;
 
-  String ValidateUsername(String value)
-  {
-      if(value.isEmpty)
-      {
-        return 'il campo non può essere vuoto';
-      }
-
+  Future<void> ValidateUsername(String value) async {
+    if (value.isEmpty) {
+      checkUser = 'il campo non può essere vuoto';
+    }
+    String s = await db.getTypeAccountUsername(value);
+    if (s == "allenatore" || s == "allievo") checkUser = "username presente";
   }
 
-  String ValidateEmail(String value)
-  {
+  String ValidateEmail(String value) {
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
     }
 
     if (!RegExp(
-        "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
+            "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
         .hasMatch(value)) {
       return 'Immetti un email valida';
     }
-
   }
 
-  String ValidatePassword(String value)
-  {
+  String ValidatePassword(String value) {
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
     }
-    if(value.length<6)
-    {
+    if (value.length < 6) {
       return 'Mettere una password che superi i 6 caratteri';
     }
   }
 
-  String ValidateConfPassword(String value)
-  {
+  String ValidateConfPassword(String value) {
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
     }
@@ -77,7 +74,7 @@ class _SignIn extends State<SignInPage> {
     await auth.createUserAllievo(_username, _email, _password);
   }*/
 
-  Future<void> Register(String username,String email,String password) async {
+  Future<void> Register(String username, String email, String password) async {
     String ris = await auth.createUserAllievo(username, email, password);
     _risreg = ris;
   }
@@ -103,8 +100,8 @@ class _SignIn extends State<SignInPage> {
           new TextFormField(
               obscureText: false,
               controller: _user,
-              validator: (value){
-                return UsernameValidator;
+              validator: (value) {
+                return checkUser;
               },
               onSaved: (String value) {
                 _username = value;
@@ -191,32 +188,26 @@ class _SignIn extends State<SignInPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.blue,
           onPressed: () async {
-            await getTypeAccountUsername(_user.text);
+            await ValidateUsername(_user.text);
 
-            setState(() {
-              this.UsernameValidator = _risusername;
-              return;
-            });
-            
             if (!_formKey.currentState.validate()) {
               return;
             }
-            _formKey.currentState.save(); //salvo il valore degli input text nelle variabili
+            _formKey.currentState
+                .save(); //salvo il valore degli input text nelle variabili
 
             print(_username);
             print(_email);
             print(_password);
             print(_confpassword);
 
-            Register(_username,_email,_password);
+            await Register(_username, _email, _password);
             print(_risreg);
-            if(_risreg=='OK')
-            {
-                //ALLIEVO INSERITO
-                //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
+            if (_risreg == 'OK') {
+              //ALLIEVO INSERITO
+              //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
 
             }
-
           },
           child: Text("Registrati",
               style: TextStyle(fontSize: 20, color: Colors.white)),
@@ -224,7 +215,6 @@ class _SignIn extends State<SignInPage> {
       ),
     );
   }
-
 
   Widget _loginAccountLabel() {
     return InkWell(
