@@ -77,6 +77,12 @@ class _CalendarioPageState extends State<CalendarioPage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          //aggiungo evento al calendario
+        },
+      ),
     );
   }
 }

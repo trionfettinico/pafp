@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pafp/allenatore/calendario.dart';
 import 'package:pafp/allenatore/impostazioni.dart';
 import 'package:pafp/allenatore/lista_allievi.dart';
-import 'package:pafp/allenatore/note.dart';
+import 'package:pafp/allenatore/chat.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _MenuPageState extends State<MenuPage> {
   int _selectedItemIndex=0;
   final List pages = [
     ListaAllieviPage(),
-    NotePage(),
+    ChatPage(),
     CalendarioPage(),
     ImpostazioniPage(),
   ];
@@ -24,7 +24,7 @@ class _MenuPageState extends State<MenuPage> {
       bottomNavigationBar:Row(
         children: <Widget>[
           buildNavBarItem(Icons.badge,0),
-          buildNavBarItem(Icons.assignment,1),
+          buildNavBarItem(Icons.chat,1),
           buildNavBarItem(Icons.calendar_today,2),
           buildNavBarItem(Icons.settings,3),
         ],

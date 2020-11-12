@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NotePage extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   @override
-  _NotePageState createState() => _NotePageState();
+  _ChatPageState createState() => _ChatPageState();
 }
 
-class _NotePageState extends State<NotePage> {
+class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text("Note"),
+          title: Text("Chat"),
           automaticallyImplyLeading: false // rimuove il pulsante di ritorno
       ),
     );
