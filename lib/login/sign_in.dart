@@ -19,7 +19,9 @@ class _SignIn extends State<SignInPage> {
   String _email;
   String _password;
   String _confpassword;
-  String _ris;    //variabile che contiene la risposta del servizio relativo alla registrazione
+  String _risreg;    //variabile che contiene la risposta del servizio relativo alla registrazione
+  //String _risusername; //variabile che contiene la risposta del servizio relativo all'esistenza dell'username
+  //String _risemail; //variabile che contiene la risposta del servizio relativo all'esistenza dell'email
 
   String ValidateUsername(String value)
   {
@@ -75,7 +77,7 @@ class _SignIn extends State<SignInPage> {
 
   Future<void> Register(String username,String email,String password) async {
     String ris = await auth.createUserAllievo(username, email, password);
-    _ris=ris;
+    _risreg=ris;
   }
 
   Widget _fieldWidget() {
@@ -183,14 +185,14 @@ class _SignIn extends State<SignInPage> {
             print(_confpassword);
 
             Register(_username,_email,_password);
-            print(_ris);
-            if(_ris=='OK')
+            print(_risreg);
+            if(_risreg=='OK')
             {
-                //sign-in allievo che andrà su menu allievo
-            }
-            else {
+                //ALLIEVO INSERITO
+                //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
 
             }
+
           },
           child: Text("Registrati",
               style: TextStyle(fontSize: 20, color: Colors.white)),
