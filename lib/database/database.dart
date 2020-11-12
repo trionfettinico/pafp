@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -6,99 +8,94 @@ class DatabaseService {
 
   DatabaseService();
 
-  Future<String> getTypeAccount(String email) async {
-    QuerySnapshot snap = await _db.collection("allenatore").get();
-    String app;
-    try {
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        app = element.data().toString().split("email:")[1];
-        app = app.split(",")[0].trim();
-        if (app == email) {
-          throw "allenatore";
-        }
-      });
-    } catch (e) {
-      return e.toString();
+  Future<String> getTypeAccountEmail(String email) async {
+    var data = await _db
+        .collection('allenatore')
+        .where('email', isEqualTo: email)
+        .get();
+    if (data.docs.isEmpty) {
+      data = await _db
+          .collection('allievo')
+          .where('email', isEqualTo: email)
+          .get();
+      if (data.docs.isEmpty) {
+        return "email-assente";
+      } else {
+        return "allievo";
+      }
+    } else {
+      return "allenatore";
     }
-    try {
-      snap = await _db.collection("allievo").get();
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        app = element.data().toString().split("email:")[1];
-        app = app.split(",")[0].trim();
-        if (app == email) {
-          throw "allievo";
-        }
-      });
-    } catch (e) {
-      return e.toString();
+  }
+
+  Future<String> getTypeAccountUsername(String username) async {
+    var data = await _db
+        .collection('allenatore')
+        .where('username', isEqualTo: username)
+        .get();
+    if (data.docs.isEmpty) {
+      data = await _db
+          .collection('allievo')
+          .where('username', isEqualTo: username)
+          .get();
+      if (data.docs.isEmpty) {
+        return "username-assente";
+      } else {
+        return "allievo";
+      }
+    } else {
+      return "allenatore";
     }
-    return "assente";
   }
 
   Future<bool> checkUsernameIfExist(String username) async {
-    QuerySnapshot snap = await _db.collection("allenatore").get();
-    String app;
-    try {
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
-          throw ("find");
-        }
-      });
-    } catch (e) {
+    var data = await _db
+        .collection('allenatore')
+        .where('username', isEqualTo: username)
+        .get();
+    if (data.docs.isEmpty) {
+      data = await _db
+          .collection('allievo')
+          .where('username', isEqualTo: username)
+          .get();
+      if (data.docs.isEmpty) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
       return true;
     }
-    try {
-      snap = await _db.collection("allievo").get();
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
-          throw ("find");
-        }
-      });
-    } catch (e) {
-      return true;
-    }
-    return false;
   }
 
   Future<String> getEmailFromUsername(String username) async {
-    QuerySnapshot snap = await _db.collection("allenatore").get();
-    String app;
-    try {
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
-          app = element.data().toString().split("email:")[1];
-          app = app.split(",")[0].trim();
-          throw (app);
-        }
-      });
-    } catch (e) {
-      return e.toString();
+    var data = await _db
+        .collection('allenatore')
+        .where('username', isEqualTo: username)
+        .get();
+    if (data.docs.isEmpty) {
+      data = await _db
+          .collection('allievo')
+          .where('username', isEqualTo: username)
+          .get();
+      if (data.docs.isEmpty) {
+        return "username-assente";
+      } else {
+        return (data.docs[0]
+            .data()
+            .toString()
+            .split(",")[0]
+            .split(":")[1]
+            .trim());
+      }
+    } else {
+      return (data.docs[0]
+          .data()
+          .toString()
+          .split(",")[0]
+          .split(":")[1]
+          .trim());
     }
-    try {
-      snap = await _db.collection("allievo").get();
-      snap.docs.forEach((element) {
-        app = element.data().toString().split("username:")[1];
-        app = app.split("}")[0].trim();
-        if (app.trim().toLowerCase() == username.trim().toLowerCase()) {
-          app = element.data().toString().split("email:")[1];
-          app = app.split(",")[0].trim();
-          throw (app);
-        }
-      });
-    } catch (e) {
-      return e.toString();
-    }
-    return "username-assente";
   }
 
   Future<QuerySnapshot> getDataCollection() {
