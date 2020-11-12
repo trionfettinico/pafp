@@ -23,10 +23,13 @@ class _SignIn extends State<SignInPage> {
 
   String ValidateUsername(String value)
   {
-    if(value.isEmpty)
+      if(value.isEmpty)
       {
         return 'il campo non può essere vuoto';
       }
+
+      //funzione ws nico
+
   }
 
   String ValidateEmail(String value)
@@ -40,12 +43,19 @@ class _SignIn extends State<SignInPage> {
         .hasMatch(value)) {
       return 'Immetti un email valida';
     }
+
+    //funzione ws nico
+
   }
 
   String ValidatePassword(String value)
   {
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
+    }
+    if(value.length<6)
+    {
+      return 'Mettere una password che superi i 6 caratteri';
     }
   }
 
@@ -176,8 +186,7 @@ class _SignIn extends State<SignInPage> {
             print(_ris);
             if(_ris=='OK')
             {
-                //procedura per prendere il ruolo
-                //procedura per settare il menu in base al ruolo
+                //sign-in allievo che andrà su menu allievo
             }
             else {
 
@@ -190,9 +199,6 @@ class _SignIn extends State<SignInPage> {
     );
   }
 
-  Widget _choiceButton() {
-    return Container();
-  }
 
   Widget _loginAccountLabel() {
     return InkWell(
@@ -246,7 +252,6 @@ class _SignIn extends State<SignInPage> {
                     SizedBox(
                       height: 40,
                     ),
-                    _choiceButton(),
                     SizedBox(
                       height: 40,
                     ),
