@@ -19,18 +19,12 @@ class _SignIn extends State<SignInPage> {
   final AuthService auth = AuthService();
   final DatabaseService db = DatabaseService();
 
-  String UsernameValidator;
-
-  String checkUser;
-
+  String checkUser; //variabile utilizzata per validator username
   String _username;
   String _email;
   String _password;
   String _confpassword;
-  String
-      _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
-  String _risusername; //variabile di appoggio servizio
-  //String _risemail;
+  String _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
 
   Future<void> ValidateUsername(String value) async {
     if (value.isEmpty) {
@@ -45,9 +39,7 @@ class _SignIn extends State<SignInPage> {
       return 'Il campo non può essere vuoto';
     }
 
-    if (!RegExp(
-            "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
-        .hasMatch(value)) {
+    if (!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)) {
       return 'Immetti un email valida';
     }
   }
@@ -79,17 +71,6 @@ class _SignIn extends State<SignInPage> {
     _risreg = ris;
   }
 
-  Future<void> getTypeAccountUsername(String username) async {
-    String ris = await db.getTypeAccountUsername(username);
-    //print(ris);
-    _risusername = ris;
-  }
-
-  /*Future<void> getTypeAccountEmail(String email) async {
-    String ris = await db.getTypeAccountEmail(email);
-    //print(ris);
-    //_risemail = ris;
-  }*/
 
   Widget _fieldWidget() {
     return Container(
