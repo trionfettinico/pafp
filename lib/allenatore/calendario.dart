@@ -73,7 +73,8 @@ class _CalendarioPageState extends State<CalendarioPage> {
                         ),
                         child: Text(date.day.toString(),style: TextStyle(color: Colors.white),)),
               ),
-              calendarController: _controller,)
+              calendarController: _controller,
+            ),
           ],
         ),
       ),

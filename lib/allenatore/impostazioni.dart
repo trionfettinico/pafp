@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pafp/allenatore/cambiopw.dart';
 
 class ImpostazioniPage extends StatefulWidget {
   @override
@@ -32,7 +33,8 @@ class _ImpostazioniPageState extends State<ImpostazioniPage> {
               trailing:Icon(Icons.keyboard_arrow_right,color: Colors.blue,),
               onTap: (){
                 // indirizzamento verso pagina cambio password
-
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => CambioPwPage()));
               },
             ),
             ListTile(
