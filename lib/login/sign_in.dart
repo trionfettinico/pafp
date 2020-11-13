@@ -191,7 +191,7 @@ class _SignIn extends State<SignInPage> {
             print(_password);
             print(_confpassword);
 
-            await Register(_username, _email, _password);
+            await Register(_username.trim(), _email.trim(), _password.trim());
             print(_risreg);
             if (_risreg == 'OK') {
               //ALLIEVO INSERITO
