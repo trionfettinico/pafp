@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
-import 'log_in.dart';
+import '../login/log_in.dart';
 import 'package:pafp/database/database.dart';
 
 class SignInPage extends StatefulWidget {
