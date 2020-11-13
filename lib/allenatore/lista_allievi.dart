@@ -18,22 +18,25 @@ class _ListaAllieviPageState extends State<ListaAllieviPage> {
           automaticallyImplyLeading: false // rimuove il pulsante di ritorno
       ),
       body: ListView(
-        children: <Widget>[
-          ListTile(
-            title: Text('Allievo 1'),
-            trailing:Icon(Icons.keyboard_arrow_right,color: Colors.blue,),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => InfoAllievoPage()));
-            },
-          ),
-          ListTile(
-            title: Text('Allievo 2'),
-          ),
-          ListTile(
-            title: Text('Allievo 3'),
-          ),
-        ],
+        children: ListTile.divideTiles(
+          context: context,
+          tiles: [
+            ListTile(
+              title: Text('Allievo 1'),
+              trailing:Icon(Icons.keyboard_arrow_right,color: Colors.blue,),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => InfoAllievoPage()));
+              },
+            ),
+            ListTile(
+              title: Text('Allievo 2'),
+            ),
+            ListTile(
+              title: Text('Allievo 3'),
+            ),
+          ]
+        ).toList(),
       ),
     );
   }
