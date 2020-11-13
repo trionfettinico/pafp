@@ -8,13 +8,12 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signIn(String email, String password) async {
-    String app = await _datab.getEmailFromUsername(email);
-    if (app != "assente") {
+    try {
       User user = (await _firebaseAuth.signInWithEmailAndPassword(
-          email: app, password: password)) as User;
+          email: email, password: password)) as User;
       return user.uid;
-    } else {
-      return "username-assente";
+    } catch (e) {
+      return "email o password errata";
     }
   }
 

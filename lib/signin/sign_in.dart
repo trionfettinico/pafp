@@ -21,32 +21,36 @@ class _SignIn extends State<SignInPage> {
   final DatabaseService db = DatabaseService();
 
   String checkUser; //variabile utilizzata per validator username
-  String checkEmail;//variabile utilizzata per validator email
+  String checkEmail; //variabile utilizzata per validator email
   String _username;
   String _email;
   String _password;
   String _confpassword;
-  String _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
+  String
+      _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
 
   Future<void> ValidateUsername(String value) async {
     if (value.isEmpty) {
       checkUser = 'il campo non può essere vuoto';
     }
     String s = await db.getTypeAccountUsername(value);
-    if (s == "allenatore" || s == "allievo") checkUser = "username già presente";
+    if (s == "allenatore" || s == "allievo")
+      checkUser = "username già presente";
   }
 
-  Future<void> ValidateEmail(String value) async{
+  Future<void> ValidateEmail(String value) async {
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
     }
 
-    if (!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)) {
+    if (!RegExp(
+            "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
+        .hasMatch(value)) {
       return 'Immetti un email valida';
     }
 
     String s = await db.getTypeAccountEmail(value);
-    if(s == 'allenatore' || s == 'allievo') checkEmail = 'email già presente';
+    if (s == 'allenatore' || s == 'allievo') checkEmail = 'email già presente';
   }
 
   String ValidatePassword(String value) {
@@ -75,7 +79,6 @@ class _SignIn extends State<SignInPage> {
     String ris = await auth.createUserAllievo(username, email, password);
     _risreg = ris;
   }
-
 
   Widget _fieldWidget() {
     return Container(
@@ -107,7 +110,7 @@ class _SignIn extends State<SignInPage> {
           new TextFormField(
               obscureText: false,
               controller: _em,
-              validator: (value){
+              validator: (value) {
                 return checkEmail;
               },
               onSaved: (String value) {

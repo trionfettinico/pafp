@@ -1,60 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
+import 'log_in.dart';
 import 'package:pafp/database/database.dart';
-import 'package:pafp/login/sign_in.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  SignInPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _LogIn createState() => _LogIn();
+  _SignIn createState() => _SignIn();
 }
 
-class _LogIn extends State<LoginPage> {
+class _SignIn extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController pass = TextEditingController();
-  final TextEditingController email = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _user = TextEditingController();
+  final TextEditingController _em = TextEditingController();
   final AuthService auth = AuthService();
   final DatabaseService db = DatabaseService();
 
-  String checkEmail; //variabile utilizzata per validator username
-  String checkPass;
+  String checkUser; //variabile utilizzata per validator username
+  String checkEmail; //variabile utilizzata per validator email
+  String _username;
   String _email;
   String _password;
+  String _confpassword;
   String
       _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
 
+  Future<void> ValidateUsername(String value) async {
+    if (value.isEmpty) {
+      checkUser = 'il campo non può essere vuoto';
+    }
+    String s = await db.getTypeAccountUsername(value);
+    if (s == "allenatore" || s == "allievo")
+      checkUser = "username già presente";
+  }
+
   Future<void> ValidateEmail(String value) async {
     if (value.isEmpty) {
-      checkEmail = 'Il campo non può essere vuoto';
-      return;
+      return 'Il campo non può essere vuoto';
     }
 
     if (!RegExp(
             "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
         .hasMatch(value)) {
-      checkEmail = 'Immetti un email valida';
-      return;
+      return 'Immetti un email valida';
     }
-    checkEmail = null;
+
+    String s = await db.getTypeAccountEmail(value);
+    if (s == 'allenatore' || s == 'allievo') checkEmail = 'email già presente';
   }
 
-  Future<void> ValidatePassword(String value) async {
+  String ValidatePassword(String value) {
     if (value.isEmpty) {
-      checkPass = 'Il campo non può essere vuoto';
-      return;
+      return 'Il campo non può essere vuoto';
     }
     if (value.length < 6) {
-      checkPass = 'Mettere una password che superi i 6 caratteri';
-      return;
+      return 'Mettere una password che superi i 6 caratteri';
     }
-    checkPass = null;
   }
 
-  Future<void> LogIn(String email, String password) async {
-    String ris = await auth.signIn(_email, _password);
+  String ValidateConfPassword(String value) {
+    if (value.isEmpty) {
+      return 'Il campo non può essere vuoto';
+    }
+    if (value != _pass.text) {
+      return 'La password di conferma non corrisponde';
+    }
+  }
+
+  /*void Register() async {
+    await auth.createUserAllievo(_username, _email, _password);
+  }*/
+
+  Future<void> Register(String username, String email, String password) async {
+    String ris = await auth.createUserAllievo(username, email, password);
     _risreg = ris;
   }
 
@@ -66,12 +88,12 @@ class _LogIn extends State<LoginPage> {
         children: <Widget>[
           new TextFormField(
               obscureText: false,
-              controller: email,
+              controller: _user,
               validator: (value) {
-                return checkEmail;
+                return checkUser;
               },
               onSaved: (String value) {
-                _email = value;
+                _username = value;
               },
               decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -86,11 +108,30 @@ class _LogIn extends State<LoginPage> {
             height: 20,
           ),
           new TextFormField(
-              controller: pass,
-              obscureText: true,
+              obscureText: false,
+              controller: _em,
               validator: (value) {
-                return checkPass;
+                return checkEmail;
               },
+              onSaved: (String value) {
+                _email = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Email',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
+          SizedBox(
+            height: 20,
+          ),
+          new TextFormField(
+              controller: _pass,
+              obscureText: true,
+              validator: ValidatePassword,
               onSaved: (String value) {
                 _password = value;
               },
@@ -106,6 +147,21 @@ class _LogIn extends State<LoginPage> {
           SizedBox(
             height: 20,
           ),
+          new TextFormField(
+              obscureText: true,
+              validator: ValidateConfPassword,
+              onSaved: (String value) {
+                _confpassword = value;
+              },
+              decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  hintText: 'Conferma Password',
+                  fillColor:
+                      Colors.white, //colore sfondo input email e password
+                  filled: true)),
         ],
       ),
     );
@@ -124,36 +180,40 @@ class _LogIn extends State<LoginPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.blue,
           onPressed: () async {
-            await ValidateEmail(email.text);
-            await ValidatePassword(pass.text);
+            await ValidateUsername(_user.text);
+            await ValidateEmail(_em.text);
 
             if (!_formKey.currentState.validate()) {
               return;
             }
             _formKey.currentState
                 .save(); //salvo il valore degli input text nelle variabili
-            await LogIn(_email, _password);
-            print("okay");
+
+            print(_username);
+            print(_email);
+            print(_password);
+            print(_confpassword);
+
+            await Register(_username.trim(), _email.trim(), _password.trim());
             print(_risreg);
             if (_risreg == 'OK') {
               //ALLIEVO INSERITO
               //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
-            } else {
-              checkPass = _risreg;
+
             }
           },
-          child: Text("Log In",
+          child: Text("Registrati",
               style: TextStyle(fontSize: 20, color: Colors.white)),
         ),
       ),
     );
   }
 
-  Widget _SignInAccountLabel() {
+  Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignInPage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
       child: Container(
         padding: EdgeInsets.all(15),
@@ -169,7 +229,7 @@ class _LogIn extends State<LoginPage> {
               width: 10,
             ),
             Text(
-              'Registrati',
+              'Login',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 13,
@@ -181,24 +241,8 @@ class _LogIn extends State<LoginPage> {
     );
   }
 
-  Widget _icon() {
-    return Container(
-      child: Container(
-        height: 100.0,
-        width: 100.0,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/icon.jpg'),
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -208,21 +252,20 @@ class _LogIn extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: height * .2),
-                    _icon(),
-                    SizedBox(height: 50),
+                    SizedBox(height: 60),
+                    //_title(),
                     SizedBox(
                       height: 5,
                     ),
                     _fieldWidget(),
                     SizedBox(
-                      height: 5,
+                      height: 40,
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 40,
                     ),
                     _submitButton(),
-                    _SignInAccountLabel(),
+                    _loginAccountLabel(),
                   ])),
         ),
       ),
