@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ImpostazioniPage extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   @override
-  _ImpostazioniPageState createState() => _ImpostazioniPageState();
+  _ChatPageState createState() => _ChatPageState();
 }
 
-class _ImpostazioniPageState extends State<ImpostazioniPage> {
+class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text("Lista schede"),
+          title: Text("Chat"),
           automaticallyImplyLeading: false // rimuove il pulsante di ritorno
       ),
     );
