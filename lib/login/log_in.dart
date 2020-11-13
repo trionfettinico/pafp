@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
 import 'package:pafp/database/database.dart';
-import 'package:pafp/login/sign_in.dart';
+import 'package:pafp/signin/sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
