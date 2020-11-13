@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pafp/allenatore/infoallievo.dart';
 
 class ListaAllieviPage extends StatefulWidget
 {
@@ -20,6 +21,11 @@ class _ListaAllieviPageState extends State<ListaAllieviPage> {
         children: <Widget>[
           ListTile(
             title: Text('Allievo 1'),
+            trailing:Icon(Icons.keyboard_arrow_right,color: Colors.blue,),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => InfoAllievoPage()));
+            },
           ),
           ListTile(
             title: Text('Allievo 2'),
