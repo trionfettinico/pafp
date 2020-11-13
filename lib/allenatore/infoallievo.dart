@@ -29,15 +29,15 @@ class _InfoAllievoPageState extends State<InfoAllievoPage> {
               height: 40,
             ),
             SizedBox(
-              width: 160,
+              width: 170,
               height: 50,
               child: RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: Colors.green,
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.add,color: Colors.white,),
-                    Text('Crea scheda',style: TextStyle(fontSize: 17,color: Colors.white)),
+                    Icon(Icons.upload_file,color: Colors.white,),
+                    Text('Carica scheda',style: TextStyle(fontSize: 17,color: Colors.white)),
                   ],
                 ),
                 onPressed: (){
