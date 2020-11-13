@@ -16,10 +16,12 @@ class _SignIn extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _user = TextEditingController();
+  final TextEditingController _em = TextEditingController();
   final AuthService auth = AuthService();
   final DatabaseService db = DatabaseService();
 
   String checkUser; //variabile utilizzata per validator username
+  String checkEmail;//variabile utilizzata per validator email
   String _username;
   String _email;
   String _password;
@@ -31,10 +33,10 @@ class _SignIn extends State<SignInPage> {
       checkUser = 'il campo non può essere vuoto';
     }
     String s = await db.getTypeAccountUsername(value);
-    if (s == "allenatore" || s == "allievo") checkUser = "username presente";
+    if (s == "allenatore" || s == "allievo") checkUser = "username già presente";
   }
 
-  String ValidateEmail(String value) {
+  Future<void> ValidateEmail(String value) async{
     if (value.isEmpty) {
       return 'Il campo non può essere vuoto';
     }
@@ -42,6 +44,9 @@ class _SignIn extends State<SignInPage> {
     if (!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)) {
       return 'Immetti un email valida';
     }
+
+    String s = await db.getTypeAccountEmail(value);
+    if(s == 'allenatore' || s == 'allievo') checkEmail = 'email già presente';
   }
 
   String ValidatePassword(String value) {
@@ -101,7 +106,10 @@ class _SignIn extends State<SignInPage> {
           ),
           new TextFormField(
               obscureText: false,
-              validator: ValidateEmail,
+              controller: _em,
+              validator: (value){
+                return checkEmail;
+              },
               onSaved: (String value) {
                 _email = value;
               },
@@ -170,6 +178,7 @@ class _SignIn extends State<SignInPage> {
           color: Colors.blue,
           onPressed: () async {
             await ValidateUsername(_user.text);
+            await ValidateEmail(_em.text);
 
             if (!_formKey.currentState.validate()) {
               return;
