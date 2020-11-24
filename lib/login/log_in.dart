@@ -78,7 +78,7 @@ class _LogIn extends State<LoginPage> {
                     borderSide: const BorderSide(color: Colors.blue),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  hintText: 'Username',
+                  hintText: 'Email',
                   fillColor:
                       Colors.white, //colore sfondo input email e password
                   filled: true)),
