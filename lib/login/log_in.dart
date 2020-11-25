@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pafp/login/services/auth.dart';
 import 'package:pafp/database/database.dart';
 import 'package:pafp/signin/sign_in.dart';
+import 'package:pafp/allenatore/menu.dart';
+import 'package:pafp/allievo/menu.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -21,8 +23,8 @@ class _LogIn extends State<LoginPage> {
 
   String checkEmail; //variabile utilizzata per validator username
   String checkPass;
-  String _email;
-  String _password;
+  String _email = "";
+  String _password = "";
   String
       _risreg; //variabile che contiene la risposta del servizio relativo alla registrazione
 
@@ -54,8 +56,7 @@ class _LogIn extends State<LoginPage> {
   }
 
   Future<void> LogIn(String email, String password) async {
-    String ris = await auth.signIn(_email, _password);
-    _risreg = ris;
+    _risreg = await auth.signIn(_email, _password);
   }
 
   Widget _fieldWidget() {
@@ -133,13 +134,41 @@ class _LogIn extends State<LoginPage> {
             _formKey.currentState
                 .save(); //salvo il valore degli input text nelle variabili
             await LogIn(_email, _password);
-            print("okay");
+            print(_email);
+            print(_password);
             print(_risreg);
-            if (_risreg == 'OK') {
-              //ALLIEVO INSERITO
+            if (_risreg == 'ok') {
+              String type = await db.getTypeAccountEmail(_email);
+              if (type == "allenatore") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPageAllenatore(email: _email),
+                    ));
+              } else if (type == "allievo") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPageAllievo(email: _email),
+                    ));
+              }
+              //ALLIEVO INSERITO gli passo username
               //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
             } else {
-              checkPass = _risreg;
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                        title: new Text("c'è un problema"),
+                        content: new Text("email o password sono errate"),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('Close me!'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      ));
             }
           },
           child: Text("Log In",

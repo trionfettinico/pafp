@@ -9,9 +9,9 @@ class AuthService {
 
   Future<String> signIn(String email, String password) async {
     try {
-      User user = (await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password)) as User;
-      return user.uid;
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return "ok";
     } catch (e) {
       return "email o password errata";
     }

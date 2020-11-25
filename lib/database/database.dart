@@ -120,6 +120,7 @@ class DatabaseService {
   }
 
   Future<DocumentReference> addAllenatore(Map data) {
+    print("sdfghj");
     ref = _db.collection('allenatore');
     return ref.add(data);
   }
