@@ -9,7 +9,8 @@ class Allievo{
   {
     return {
       "nome":this.Nome,
-      "cognome":this.Cognome
+      "cognome":this.Cognome,
+      "username":this.Username
     };
   }
 }
