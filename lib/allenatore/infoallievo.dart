@@ -12,7 +12,7 @@ class _InfoAllievoPageState extends State<InfoAllievoPage> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text('Allievo 1'),
+          title: Text('Schede'),
       ),
       body: _bodyInfoAllievo(context),
     );
@@ -21,32 +21,7 @@ class _InfoAllievoPageState extends State<InfoAllievoPage> {
   Widget _bodyInfoAllievo(BuildContext context)
   {
     return Container(
-        alignment: Alignment.center,
-        child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 40,
-            ),
-            SizedBox(
-              width: 170,
-              height: 50,
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                color: Colors.green,
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.upload_file,color: Colors.white,),
-                    Text('Carica scheda',style: TextStyle(fontSize: 17,color: Colors.white)),
-                  ],
-                ),
-                onPressed: (){
 
-                },
-              ),
-            ),
-          ],
-        ),
     );
   }
 
