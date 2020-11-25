@@ -54,8 +54,7 @@ class _LogIn extends State<LoginPage> {
   }
 
   Future<void> LogIn(String email, String password) async {
-    String ris = await auth.signIn(_email, _password);
-    _risreg = ris;
+    _risreg = await auth.signIn(_email, _password);
   }
 
   Widget _fieldWidget() {
@@ -137,10 +136,23 @@ class _LogIn extends State<LoginPage> {
             print(_password);
             print(_risreg);
             if (_risreg == 'OK') {
-              //ALLIEVO INSERITO
+              //ALLIEVO INSERITO gli passo username
               //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
             } else {
-              checkPass = _risreg;
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                        title: new Text("c'è un problema"),
+                        content: new Text("email o password sono errate"),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('Close me!'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      ));
             }
           },
           child: Text("Log In",
