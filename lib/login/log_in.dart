@@ -135,7 +135,7 @@ class _LogIn extends State<LoginPage> {
             print(_email);
             print(_password);
             print(_risreg);
-            if (_risreg == 'OK') {
+            if (_risreg == 'ok') {
               //ALLIEVO INSERITO gli passo username
               //MENU NAVIGATOR CHE ANDRA' NEL MENU ALLIEVO
             } else {
