@@ -133,7 +133,8 @@ class _LogIn extends State<LoginPage> {
             _formKey.currentState
                 .save(); //salvo il valore degli input text nelle variabili
             await LogIn(_email, _password);
-            print("okay");
+            print(_email);
+            print(_password);
             print(_risreg);
             if (_risreg == 'OK') {
               //ALLIEVO INSERITO
