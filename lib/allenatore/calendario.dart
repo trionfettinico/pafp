@@ -32,6 +32,7 @@ class _CalendarioPageState extends State<CalendarioPage> {
           children: <Widget>[
             TableCalendar(
               initialCalendarFormat: CalendarFormat.week, // come vista iniziale è impostata la settimana corrente
+              locale: 'it_IT',
               calendarStyle: CalendarStyle(
                 todayColor: Colors.orange,
                 selectedColor: Colors.blue,
