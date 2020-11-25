@@ -15,7 +15,20 @@ class _ListaAllieviPageState extends State<ListaAllieviPage> {
       appBar: AppBar(
           centerTitle: true,
           title: Text("Lista Allievi"),
-          automaticallyImplyLeading: false // rimuove il pulsante di ritorno
+          automaticallyImplyLeading: false, // rimuove il pulsante di ritorno
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Icon(
+                    Icons.add,
+                    size: 26.0,
+                    color: Colors.white,
+                  ),
+                )
+            ),
+          ],
       ),
       body: ListView(
         children: ListTile.divideTiles(
